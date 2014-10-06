@@ -34,7 +34,9 @@ class WearableWayfinder
     void initialize();
     
     void show_time(int ax, int ay);
+    void show_time(int ax, int ay, int text_size);
     void show_time(int ax, int ay, DateTime a_time);
+    void show_time(int ax, int ay, DateTime a_time, int text_size);
     void set_date_time(const char* date, const char* time);
     void show_date(int ax, int ay);
     DateTime now();

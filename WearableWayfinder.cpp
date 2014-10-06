@@ -54,31 +54,6 @@ void WearableWayfinder :: initialize()
 
 }
 
-void WearableWayfinder :: show_time(int ax, int ay)
-{
-  int text_size = 1;
-  cur_time = clock.now();
-  if (cur_time.hour() > 9) print_integer(ax, ay, cur_time.hour(), text_size, false);  
-  else print_integer(ax+7, ay, cur_time.hour(), text_size, false);  
-  draw_string(ax+(text_size*11), ay,":", ST7735_MAGENTA);
-  if (cur_time.minute() < 10){
-    print_integer(ax+(text_size*15),ay, 0, text_size, false);
-    print_integer(ax+(text_size*15)+6,ay, cur_time.minute(), text_size, false);
-  } else print_integer(ax+(text_size*15),ay, cur_time.minute(), text_size, false);
-  if (last_time.minute() != cur_time.minute() ){
-   tft->fillRect(ax, ay-2, text_size*42, text_size*10, ST7735_WHITE);  
-  }
-  draw_string(ax+(text_size*26), ay,":", ST7735_RED); 
-  if (cur_time.second() < 10){
-    print_integer(ax+(text_size*30),ay, 0, text_size, false);  
-    print_integer(ax+(text_size*30)+7,ay, cur_time.second(), text_size, false);  
-  }else print_integer(ax+(text_size*30),ay, cur_time.second(), text_size, false);  
-  if (last_time.second() != cur_time.second() ){
-   tft->fillRect(ax+(text_size*30), ay-2, text_size*12, text_size*10, ST7735_WHITE);  
-  }
-  last_time = cur_time;
-}
-
 void WearableWayfinder :: set_date_time(const char* date, const char* time)
 {
   clock.setDateTime(date, time);
@@ -105,9 +80,41 @@ void WearableWayfinder :: initialize_compass()
   compass.SetMeasurementMode(Measurement_Continuous); // Set the measurement mode to Continuous
 }
 
+void WearableWayfinder :: show_time(int ax, int ay)
+{
+  show_time(ax, ay, 1);
+}
+
+void WearableWayfinder :: show_time(int ax, int ay, int text_size)
+{
+  cur_time = clock.now();
+  if (cur_time.hour() > 9) print_integer(ax, ay, cur_time.hour(), text_size, false);  
+  else print_integer(ax+(6*text_size), ay, cur_time.hour(), text_size, false);  
+  draw_string(ax+(text_size*11), ay,":", ST7735_MAGENTA);
+  if (cur_time.minute() < 10){
+    print_integer(ax+(text_size*15),ay, 0, text_size, false);
+    print_integer(ax+(text_size*15)+(6*text_size),ay, cur_time.minute(), text_size, false);
+  } else print_integer(ax+(text_size*15),ay, cur_time.minute(), text_size, false);
+  if (last_time.minute() != cur_time.minute() ){
+   tft->fillRect(ax, ay-2, text_size*42, text_size*10, ST7735_WHITE);  
+  }
+  draw_string(ax+(text_size*26), ay,":", ST7735_RED); 
+  if (cur_time.second() < 10){
+    print_integer(ax+(text_size*30),ay, 0, text_size, false);  
+    print_integer(ax+(text_size*30)+(6*text_size),ay, cur_time.second(), text_size, false);  
+  }else print_integer(ax+(text_size*30),ay, cur_time.second(), text_size, false);  
+  if (last_time.second() != cur_time.second() ){
+   tft->fillRect(ax+(text_size*30), ay-2, text_size*12, text_size*10, ST7735_WHITE);  
+  }
+  last_time = cur_time;
+}
 void WearableWayfinder :: show_time(int ax, int ay, DateTime a_time)
 {
-  int text_size = 1;
+  show_time(ax, ay, a_time, 1);
+}
+
+void WearableWayfinder :: show_time(int ax, int ay, DateTime a_time, int text_size)
+{
   if (a_time.hour() > 9) print_integer(ax, ay, a_time.hour(), text_size, false);  
   else print_integer(ax+7, ay, a_time.hour(), text_size, false);  
   draw_string(ax+(text_size*11), ay,":", ST7735_MAGENTA);
