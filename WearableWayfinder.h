@@ -61,15 +61,16 @@ class WearableWayfinder
     void draw_string(int x, int y, String text, uint16_t color);
     void draw_string(int x, int y, String text);
     void print_integer(int ax, int ay, int to_print, int text_size, boolean=false);
-    void playTone(int tone, int duration);
-    void playNote(char note, int duration);
+    void play_tone(int tone, int duration);
+    void play_note(char note, int duration);
     
     void fill_ellipse(uint8_t x0, uint8_t y0, uint8_t w, uint8_t h, uint16_t color);
 
     
     Color background, stroke, fill;
-    int btn1_pin;
-    int btn2_pin;
+    int btn_1_pressed();
+    int btn_2_pressed();
+    int speaker_pin;
   private:
   
     Adafruit_ST7735 *tft;
@@ -77,7 +78,7 @@ class WearableWayfinder
     HMC5883L compass;
     MMA8453Q accelerometer;
     DateTime cur_time, last_time;
-    int speaker_pin;
+    uint8_t btn_pin_1, btn_pin_2;
 };
 
 

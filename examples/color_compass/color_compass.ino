@@ -47,7 +47,7 @@ void loop(){
   }
   old_direction_index = direction_index; 
   ww.show_heading(10, 145);
-  if ( digitalRead(ww.btn1_pin) == HIGH){
+  if (ww.btn_1_pressed()){
    tft.fillScreen(ww.background.color_16());  
  }
 }

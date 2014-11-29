@@ -58,7 +58,7 @@ void loop(){
     ww.draw_string(2, alarm_y,"Alarm is ON", ww.stroke.color_16(), 1);
     if (alarm_time.hour() == cur_time.hour()
       && alarm_time.minute() == cur_time.minute()){
-         ww.playNote(names[cur_note++], 300);
+         ww.play_note(names[cur_note++], 300);
          if (cur_note == 8) cur_note = 0;
      }
   } else {
@@ -68,12 +68,12 @@ void loop(){
 }  
 
 void check_buttons(){
- if ( digitalRead(ww.btn1_pin) == HIGH && millis() - last_press > 800){
+ if (ww.btn_1_pressed() && millis() - last_press > 800){
    tft.fillRect(0, alarm_y, 128, 62, ST7735_WHITE);  
    alarm_on = !alarm_on;
    last_press = millis();
  }
- if (digitalRead(ww.btn2_pin) == HIGH && millis() - last_press > 800){
+ if (ww.btn_2_pressed() && millis() - last_press > 800){
    set_minute = !set_minute;
    tft.drawLine(80, alarm_y+8, 110, alarm_y+8, ST7735_WHITE);
    last_press = millis();

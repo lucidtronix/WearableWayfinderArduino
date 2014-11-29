@@ -90,7 +90,7 @@ void loop(){
     }
     if (abit) tft.drawPixel(cur_y, i, ww.fill.color_16());
     else tft.drawPixel(cur_y, i, ww.background.color_16());
-    if( digitalRead(ww.btn1_pin) == HIGH && millis() - last_press > 500 ){
+    if(ww.btn_1_pressed() == HIGH && millis() - last_press > 500 ){
       cur_rule = ++cur_rule%num_rules;
       for (int i = 0; i < scanline_size; i++) {
         nextline[i] = 0;
@@ -99,7 +99,7 @@ void loop(){
       last_press = millis();
       break;
     }
-    if( digitalRead(ww.btn2_pin) == HIGH ){
+    if(ww.btn_2_pressed() == HIGH ){
       ww.clear_screen(ww.background);
       for (int i = 0; i < scanline_size; i++) {
         nextline[i] = 0;

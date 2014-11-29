@@ -23,8 +23,8 @@ WearableWayfinder :: WearableWayfinder(Adafruit_ST7735 *a_tft)
 {
   tft = a_tft;
   speaker_pin = 6;
-  btn1_pin = 10;
-  btn2_pin = 11;
+  btn_pin_1 = 10;
+  btn_pin_2 = 11;
   fill = Color(128, 128, 128);
   stroke = Color(0, 0, 0);
   background = Color(255, 255, 255);
@@ -32,8 +32,8 @@ WearableWayfinder :: WearableWayfinder(Adafruit_ST7735 *a_tft)
 
 void WearableWayfinder :: initialize()
 {
-  pinMode(btn1_pin,INPUT);
-  pinMode(btn2_pin,INPUT); 
+  pinMode(btn_pin_1,INPUT);
+  pinMode(btn_pin_2,INPUT); 
   pinMode(speaker_pin, OUTPUT); 
   
   Wire.begin(); // Start the I2C interface.
@@ -54,6 +54,15 @@ void WearableWayfinder :: initialize()
 
 }
 
+int WearableWayfinder :: btn_1_pressed()
+{
+    return (digitalRead(btn_pin_1) == HIGH);
+}
+
+int WearableWayfinder :: btn_2_pressed()
+{
+   return (digitalRead(btn_pin_2) == HIGH);
+}
 void WearableWayfinder :: set_date_time(const char* date, const char* time)
 {
   clock.setDateTime(date, time);
@@ -236,7 +245,7 @@ void WearableWayfinder :: draw_numbers(int color)
   draw_string(12, 68,"9",color,2); 
 }
 
-void WearableWayfinder :: playTone(int tone, int duration) 
+void WearableWayfinder :: play_tone(int tone, int duration) 
 {
   for (long i = 0; i < duration * 1000L; i += tone * 2){
     digitalWrite(speaker_pin, HIGH);
@@ -246,7 +255,7 @@ void WearableWayfinder :: playTone(int tone, int duration)
   }
 }
 
-void WearableWayfinder :: playNote(char note, int duration) 
+void WearableWayfinder :: play_note(char note, int duration) 
 {
   int tones[] = { 1915, 1700, 1519, 1432, 1275, 1136, 1014, 956 };
   char names[] = { 'c', 'd', 'e', 'f', 'g', 'a', 'b', 'C' };
@@ -254,7 +263,7 @@ void WearableWayfinder :: playNote(char note, int duration)
   // play the tone corresponding to the note name
   for (int i = 0; i < 8; i++) {
     if (names[i] == note) {
-      playTone(tones[i], duration);
+      play_tone(tones[i], duration);
     }
   }
 }

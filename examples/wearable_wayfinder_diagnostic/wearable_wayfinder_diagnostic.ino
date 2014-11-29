@@ -40,11 +40,11 @@ void loop(){
   if(pot != old_pot) tft.fillRect(10, 145, 50, 10, ww.background.color_16()); 
   ww.print_integer(10, 145, pot, 1);
   old_pot = pot;
-  if(digitalRead(ww.btn1_pin) == HIGH){
-    ww.playNote(notes[cur_note++], 300);
+  if(ww.btn_1_pressed()){
+    ww.play_note(notes[cur_note++], 300);
     if (cur_note == 8) cur_note = 0;
   } 
-  if(digitalRead(ww.btn2_pin) == HIGH){
+  if(ww.btn_2_pressed()){
     ww.stroke = Color(random(255), random(255), random(255));
   } 
 }  
