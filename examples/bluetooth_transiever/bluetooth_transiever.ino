@@ -1,4 +1,6 @@
-/* LucidTronix Wearable Wayfinder Color Clock
+/* LucidTronix Wearable Wayfinder 
+ * Blue Tooth Transeiver
+ * written by samwell freeman for LucidTronix
  * For instructions, details and schematic, See:
  * http://www.lucidtronix.com/tutorials/64
  */
@@ -19,7 +21,7 @@ Adafruit_ST7735  tft = Adafruit_ST7735(SS, 9, 8);
 WearableWayfinder ww = WearableWayfinder(&tft);
 
 int old_pot = 0;
-const int buffer_size = 128;
+const int buffer_size = 18;
 char buffer_in[buffer_size];
 int char_index = 0;
 
@@ -27,7 +29,7 @@ void setup() {
   Serial1.begin(115200);    	//initialize Serial1
   Serial.begin(115200);    	//initialize Serial1
 
-  for(int i = 0; i < buffer_size; i++) buffer_in[i] = '\0';
+  for(int i = 0; i < buffer_size; i++) buffer_in[i] = 0;
 
   ww.initialize();
   ww.draw_string(5, 6, "BLUE", Color(30, 35, 255).color_16(), 3);
@@ -44,6 +46,7 @@ void loop() {
     char cur_char;
     while((cur_char = Serial1.read()) != -1){
       buffer_in[char_index] = cur_char;
+      char_index = ++char_index % buffer_size;
     }
     Serial1.print("received string:");
     Serial1.println(buffer_in);
