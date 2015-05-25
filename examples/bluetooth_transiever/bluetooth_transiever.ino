@@ -54,16 +54,16 @@ void loop() {
     ww.draw_string(2, 145, buffer_in, ww.stroke.color_16(), 1);
   }
   
-  if (ww.btn_2_pressed()){
-    ww.clear_screen();
-    Serial1.println("Btn 2 pressed");
-    ww.draw_string(5, 106, "Btn 2 pressed", ww.stroke.color_16(), 1);
-  }
-  
   if (ww.btn_1_pressed()){
     ww.clear_screen();
     Serial1.println("Btn 1 pressed");
     ww.draw_string(5, 106, "Btn 1 pressed", ww.stroke.color_16(), 1);
+  }
+  
+  if (ww.btn_2_pressed()){
+    ww.clear_screen();
+    Serial1.println("Btn 2 pressed");
+    ww.draw_string(5, 106, "Btn 2 pressed", ww.stroke.color_16(), 1);
   }
 
   int pot =  analogRead(0);
